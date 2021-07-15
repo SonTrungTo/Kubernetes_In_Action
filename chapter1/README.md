@@ -13,3 +13,8 @@
     - User ID (user)
 - *Linux Control Groups*(cgroups)
     - Limiting the resources a process can access.
+
+## Docker
+- Images
+- Registries
+- Containers
