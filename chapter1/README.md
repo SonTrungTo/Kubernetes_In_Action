@@ -70,3 +70,17 @@ and providing services to the app is done by the following components:
     - **kubelet**: communicates with API server and manages the containers on its node.
     - **kube-proxy**: Kubernetes Service Proxy, which load-balances network traffic
     between application components.
+
+## Benefits of Kubernetes
+
+- Simplification of deployment: abstraction of infrastructure eases the need to know/manage apps in worker nodes
+since they are in a big computational resource waiting to be interacted with.
+- Utilization of resources: Kubernetes manages resources taken by containers in a cluster with maximum efficiency.
+- Health checking && Self-healing: Kubernetes auto switches the app to a new node when the current node fails,
+allowing the devs to pay attention to fixing the node rather than to worry about migrating to a new node.
+- Auto scaling: Kubernetes auto replicates the apps when necessary (spiking). When in the cloud
+environment, it auto scales the cluster when necessary.
+- Simplification of development
+    - Allowing the discovery of bugs faster.
+    - Querying Kubernetes API server for services without the need for leader election.
+    - Increasing confidence in rolling out new version since Kubernetes auto stops failed version rolling out.
