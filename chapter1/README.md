@@ -33,8 +33,24 @@
 - It puts a strong emphasis on security, composability and conforming to open container standards =>
 capable of running Docker-based images.
 
-## Kubernetes
+# Kubernetes
+
+- Acting as OS for the clusters.
+- Abstract the infrastructure-related servuces away from developers' apps. (
+    - service discovery,
+    - scaling,
+    - load-balancing,
+    - self-healing,
+    - leader election, etc...
+)
+- Maximizing resource utilization (by switching and mixing apps).
 
 ## Bird view
 
-Developer -> 
+Developer ->(Description) App List ->(Input) Kubernetes Master -> Master Nodes(all worker nodes with each
+node having the specific container(s) as stipulated in the App List.) 
+
+## Architecture view
+
+- Master nodes
+- Worker nodes
