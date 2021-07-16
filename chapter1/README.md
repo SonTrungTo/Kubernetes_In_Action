@@ -1,4 +1,4 @@
-## Some notes
+# Some notes
 
 ## Mechanism for isolation of containers
 - *Linux Namespaces*
@@ -52,5 +52,21 @@ node having the specific container(s) as stipulated in the App List.)
 
 ## Architecture view
 
-- Master nodes
-- Worker nodes
+- Master nodes: host Kubernetes Control Plane that controls and manages the whole Kubernetes system,
+consisting of multiple components in a single master node or be splitted into many master nodes and replicated
+to ensure high availability.
+    - **API server**: let the developer(s) and the other Control Plane components communicate with.
+    - **Scheduler**: schedules apps (assign a worker node to each
+    deployable component).
+    - **Controller Manager**: performs cluster-level functions, such as replicating components,
+    keeping track of worker nodes, handling nodes failures, etc...
+    - **etcd**: persistent data storage that stores the cluster configuration.
+
+=> Hold and control the state of the cluster
+
+- Worker nodes: the machines that run containerized apps. The task of running, monitoring,
+and providing services to the app is done by the following components:
+    - **Container runtime**: Docker, or rkt, etc... that runs the containers.
+    - **kubelet**: communicates with API server and manages the containers on its node.
+    - **kube-proxy**: Kubernetes Service Proxy, which load-balances network traffic
+    between application components.
