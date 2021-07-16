@@ -18,3 +18,23 @@
 - Images
 - Registries
 - Containers
+
+## Image layers
+- Distribution more efficient.
+- Reduce storage footprint of images.
+
+## Portability limitation of container images
+- Kernel modules/Kernel version requirements.
+- Same architecture is needed for containerized applications.
+
+## rkt
+- Docker is a part of Open Container Initiative (OCI), as is *rkt*.
+- Also a Linux container engine.
+- It puts a strong emphasis on security, composability and conforming to open container standards =>
+capable of running Docker-based images.
+
+## Kubernetes
+
+## Bird view
+
+Developer -> 
