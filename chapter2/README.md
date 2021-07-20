@@ -30,4 +30,29 @@ I AM THE KING!
 
 - `docker inspect <container_name>`: returns JSON of low-level info about the container.
 
-- `docker exec -it kubia-container bash`
+- `docker exec -it kubia-container bash`: running bash inside container environment
+    - `-i`: STDIN is kept open (for entering commands into the shell)
+    - `-t`: allocates a pseudo terminal (TTY)
+    - Notice that a process is running both in a container and on its host OS, yet its PID
+    is difference in each because of the container having its own Linux Namespace.
+    - Similarly, the filesystem is isolated.
+
+- `docker stop <container_name>`, `docker ps -a`, `docker rm <container_name>`
+
+- `docker tag <old_tag_name> <new_tag_name>`: creates a new image tag pointing to the same image ID.
+
+- `docker login`, `docker push <image_name>`(Docker hub namerule: dockerID/image_name)
+
+## Kubernetes
+
+### Minikube
+
+### GKE (installing)
+
+- Install GKE
+- `gcloud components install kubectl`
+- Creating a cluster with 3 nodes: `gcloud container clusters create <cluster_name> --num-nodes 3
+--machine-type e2-standard-2 --region europe-north1-a`
+- `gcloud container clusters delete <cluster_name>`
+- `gcloud config set compute/region europe-north1-a`
+- `gcloud config list compute/region`
