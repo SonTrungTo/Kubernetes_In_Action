@@ -97,4 +97,11 @@ and sharing the same Linux namespace(s).
 - `k scale deployment kubia --replicas=3`
 - `k get rs`
 
+### Which nodes pods are allocated?
+- Isn't important
+- `k get po -o wide`
+
+### Dashboard link
+(deprecated, substituted by GKE console.)
+
 => always static IP thanks to Services.
