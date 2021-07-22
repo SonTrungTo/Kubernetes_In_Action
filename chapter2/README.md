@@ -51,8 +51,7 @@ I AM THE KING!
 
 - Install GKE
 - `gcloud components install kubectl`
-- Creating a cluster with 3 nodes: `gcloud container clusters create <cluster_name> --num-nodes 3
---machine-type e2-standard-2 --region europe-north1-a`
+- Creating a cluster with 3 nodes: `gcloud container clusters create <cluster_name> --num-nodes 3 --machine-type e2-standard-2 --region europe-north1-a`
 - `gcloud container clusters delete <cluster_name>`
 - `gcloud config set compute/region europe-north1-a`
 - `gcloud config list compute/region`
