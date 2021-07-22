@@ -41,7 +41,7 @@ I AM THE KING!
 
 - `docker tag <old_tag_name> <new_tag_name>`: creates a new image tag pointing to the same image ID.
 
-- `docker login`, `docker push <image_name>`(Docker hub namerule: dockerID/image_name)
+- `docker login`, `docker push <image_name>`(Docker hub namerule: dockerID/image_name), `docker pull <image_name>`
 
 ## Kubernetes
 
@@ -56,3 +56,45 @@ I AM THE KING!
 - `gcloud container clusters delete <cluster_name>`
 - `gcloud config set compute/region europe-north1-a`
 - `gcloud config list compute/region`
+
+`[]` :== optional
+
+- `kubectl get [nodes]`: list all of the nodes (worker) (`kubectl get` is used a lot).
+- `kubectl compute ssh <worker_node_name>`: to login one of the worker nodes and see what is in it.
+- `kubectl describe node [<node_name>]`: describe the node in details.
+
+### Some tips
+- Put `alias k=kubectl` inside `~/.bashrc`
+- Install `bash-completion` package then `source <(kubectl completion bash | sed s/kubectl/k/g)`
+
+- `kubectl create deployment kubia --image=011092295y/kubia --port=8080` (`--generator=run/v1` is deprecated, has no effect and will be removed)
+=> pod/kubia created.
+
+### Pods
+- Uses concept of multiple co-located containers.
+- A pod is a group of one or multiple tightly-related containers running together on the same worker node
+and sharing the same Linux namespace(s).
+- `kubectl get pods`
+- `kubectl describe pods`
+-  The process of creating a pod (`pod/kubia`):
+    - `k create deployment...` creating a new ReplicationController through the API server.
+    - This ReplicationController orders a new pod.
+    - The Scheduler receives this information via API server and schedules a new pod to a worker node.
+    - Kubelet (inside the pod) saw this (via API server) and instructed Docker to pull its image from DockerHub.
+    - Docker runs its container.
+
+### Acessing web application
+- Abbreviation: `services=svc, pods=po, replicationset=rs, ...`
+- Objects: `Pods, Nodes, Services`
+- Pods IP are internal to its cluster and needs a Service Object to connect. (e.g, `--type=LoadBalancer`)
+- `kubectl expose deployment kubia --type=LoadBalancer --name=kubia-http`
+- `kubectl get svc`
+
+### Logical view of the system
+- Incoming ---> (8080) Service ---> (8080) Pod ---> ReplicationController:kubia, replicas=1
+
+### Scaling horizontally
+- `k scale deployment kubia --replicas=3`
+- `k get rs`
+
+=> always static IP thanks to Services.
