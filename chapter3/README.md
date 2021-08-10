@@ -30,4 +30,10 @@ Unless there is a specific reason, run containers in separate pods.
 - `kubectl create -f <yaml/json file>` => create a resource from YAML/JSON file.
 - `docker logs <container_id>` => retrieving log files from docker container
 - `kubectl logs <pod_name>` => retrieving pod's log (i.e, container's log for `kubectl logs kubia-manual`)
-- 
+- `kubectl logs <pod_name> -c <container_name>` => logs for multiple container inside a pod (logs centralized and saved after pods deleted in ch17), 
+like `kubectl logs kubia-name -c kubia`
+
+## Sending requests to pod (post-forward) for testing and debugging
+- Another way is services (already in chapter 2)
+- `kubectl post-forward <pod_name> 8888:8080` (e.g, `kubectl post-forward kubia-manual 8888:8080`) => try `curl localhost:8888`
+- curl -> (8888)kubectl post-forward -------> (8080)Pod
