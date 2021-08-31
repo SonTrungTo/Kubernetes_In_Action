@@ -51,3 +51,20 @@ which is then utilized when selecting resources using *label selectors*.
 - Modifying: `kubectl label po <pod_name> key=value --overwrite`
 
 ## Listing subsets of pods through LABEL SELECTORS
+- *Label selectors* allows one to select a subset of pods tagged with certain labels
+and perform an operation on those pods. Its criteria bases on whether the resource contains:
+    - Key
+    - Key=Value
+    - Key!=Value
+- `kubectl get po -l creation_method=manual`
+- `kubectl get po -l env`
+- `kubectl get po -l '!env'`
+- `kubectl get po -l creation_method!=manual`
+- `kubectl get po -l 'env in (prod,debug,devel)'` (env is one of prod, debug or devel,etc...)
+- `kubectl get po -l 'env notin (prod,debug,devel)'`
+- **Multiple selectors**: needs to be separated by `,`. Resources need to match all of them to
+match the selector, e.g, `kubectl get po -l creation_method=manual,env!=debug`
+
+## Using labels and selectors to constrain pod scheduling
+- Some situations require some pods to be scheduled to some specific nodes.
+- Using `label` to achieve this.
