@@ -37,3 +37,17 @@ like `kubectl logs kubia-name -c kubia`
 - Another way is services (already in chapter 2)
 - `kubectl post-forward <pod_name> 8888:8080` (e.g, `kubectl post-forward kubia-manual 8888:8080`) => try `curl localhost:8888`
 - curl -> (8888)kubectl post-forward -------> (8080)Pod
+
+## The need for grouping pods
+- Using `labels`.
+- A `label` is an arbitrary, non-unique key:value pair attached to a resource,
+which is then utilized when selecting resources using *label selectors*.
+- Even though *label* isn't unique, its key is.
+- `kubectl get po <pod_name> --show-labels` => output labels for each pod.
+- Interested in certain labels ? `kubectl get po -L key1,key2,...` e.g, `kubectl get po -L creation_method,env`
+
+## Modifying labels of existing pods
+- Adding labels to exisitng pods: `kubectl label po <pod_name> key=value`
+- Modifying: `kubectl label po <pod_name> key=value --overwrite`
+
+## Listing subsets of pods through LABEL SELECTORS
