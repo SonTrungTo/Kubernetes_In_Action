@@ -106,4 +106,12 @@ to individual users.
 pods in namespace A can connect to pods in namespace B
 
 ## Stopping and removing pods.
-- 
+- `kubectl delete po <pod_name>` (first SIGTERM for 30s, then SIGKILL)
+- `kubectl delete po -l creation_method=manual` (i.e, with *label selector*)
+- Delete the whole namespace along with its pods: `k delete ns <namespace_name>`
+- Delete all pods while keeping the namespace: `k delete po --all` (this will not work since
+Replication Set manages the number of pods => need to delete Replication Service)
+=> `kubectl delete all --all`
+- Certain resources remain and have to be deleted manually (Secret in chapter 7).
+- `kubernetes` Service is also deleted, but it should be recreated automatically
+in a few seconds.
