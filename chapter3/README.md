@@ -68,3 +68,17 @@ match the selector, e.g, `kubectl get po -l creation_method=manual,env!=debug`
 ## Using labels and selectors to constrain pod scheduling
 - Some situations require some pods to be scheduled to some specific nodes.
 - Using `label` to achieve this.
+- `kubectl label node <node_name> gpu=true`
+- `kubectl get nodes -l gpu=true`, `kubectl get nodes -L gpu`, etc...
+- Example: When assigning a pod to a node with label `gpu=true`, add
+`nodeSelector` property in `spec` in the yaml file. (`nodeSelector: gpu: "true"`)
+
+## Annotations
+- They are also key-value pairs, but it's not the same use as labels.
+- Used mainly by tools for larger pieces of information.
+- To see them, use `k get po <po_name> -o yaml` or `k describe`
+- **They are deprecated in v1.9, so no longer be seen in yaml be default.**
+
+## Adding annotations
+- `k annotate pod <pod_name> dishwasher92.com/testingpod="Testing annotations on K8s pods"`
+- Then `k describe po <pod_name>`
