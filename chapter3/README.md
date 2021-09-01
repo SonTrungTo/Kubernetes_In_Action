@@ -64,6 +64,7 @@ and perform an operation on those pods. Its criteria bases on whether the resour
 - `kubectl get po -l 'env notin (prod,debug,devel)'`
 - **Multiple selectors**: needs to be separated by `,`. Resources need to match all of them to
 match the selector, e.g, `kubectl get po -l creation_method=manual,env!=debug`
+- This shows that groups can be overlapped.
 
 ## Using labels and selectors to constrain pod scheduling
 - Some situations require some pods to be scheduled to some specific nodes.
@@ -82,3 +83,27 @@ match the selector, e.g, `kubectl get po -l creation_method=manual,env!=debug`
 ## Adding annotations
 - `k annotate pod <pod_name> dishwasher92.com/testingpod="Testing annotations on K8s pods"`
 - Then `k describe po <pod_name>`
+
+## Using namespaces to group resources
+- If we want to group resources into non-overlapping groups, use namespaces.
+- Separating groups enables the use of the same resources across different
+environment (multi-tenant environment, e.g, QA, Development, Production,etc...).
+- Providing scopes for naming resources.
+- A few resouces are not namespaced, e.g, the Node resource.
+- List all namespaces: `kubectl get ns`
+- Normally, `k get po` default to `default` namespace, but now...
+- `k get po --namespace kube-system` === `k get po -n kube-system`
+=> Allow to restrict access to resources and even to limit computational resources available
+to individual users.
+
+### Namespace is a resource
+- Hence, createable.
+- `k create namespace <namespace_name>`
+- To create resource into a namespace, `k create -f <yaml_file> -n <namespace_name>`
+- To quickly switch namespaces,
+    - `alias kcd='kubectl config set-context $(kubectl config current-context) --namespace '` in `~/.bashrc`
+- Note that namespaces separate resouces, but they do isolate running resouces, e.g,
+pods in namespace A can connect to pods in namespace B
+
+## Stopping and removing pods.
+- 
