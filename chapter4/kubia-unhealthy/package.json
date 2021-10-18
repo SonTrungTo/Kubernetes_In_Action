@@ -1,0 +1,17 @@
+{
+  "name": "kubia-unhealthy",
+  "version": "1.0.0",
+  "description": "Using HTTP GET Liveness Probe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kubia-unhealthy"
+  ],
+  "author": "Son To",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
