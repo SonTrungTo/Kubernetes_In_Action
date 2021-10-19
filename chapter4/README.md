@@ -29,5 +29,46 @@ and checks its exit status code.
 
 ### To manage pods, independent of Kubelet (should nodes fail), we need ReplicationControllers (ReplicationState)
 
-## ReplicationControllers
+## ReplicationControllers(RC)
+- ReplicationController is a K8s resource to ensure that pods are always kept running,
+both in availability and in quantity of a "type"(i.e, label selector).
+- ReplicationController has 3 essential parts:
+    - A *label selector*: What pods are in RC's scope
+    - A *replica count*: The number of pods running
+    - A *pod template*: Used for creating **new** pod replicas
+- RC provides these features:
+    - Ensures quantity of pods.
+    - Ensures availability of pods should a node fails.
+    - Ensures scaling horizontally.
+- *Pod Selector is required in RS(RC) setup.*
 
+We test the role of RS by shutting off its node.
+- To disconnect the node, `gcloud compute ssh <node_name>` then `sudo ifconfig eth0 down`.
+- To reset the node, `gcloud compute instances reset <node_name>`.
+
+### Moving pods in and out of the scope of RS
+- Use labels, changing them.
+
+*TIPS*: A pod controlled by a RS can realize its RS with `metadata.ownerReferences`
+
+### Removing pods from RS
+- Use this to easily interact with specific pods, then delete it.
+
+### Changing RS's label selector
+- Question: What would happen if we change the RS's label selector?
+- My answer: RS will create `x` brand-new pods infinitely since the 3 new pods
+created did not have a specific label. But then API server should have reported an error
+due to mistach configurations.
+- The book's answer: 3 new pods will be created.
+- Never change its label selector, even though it's possible, but its template can be changed.
+
+### Changing the pod template
+- Edit RS: `kubectl edit rs <rs_name>`
+- Can be used to upgrade new pods.
+- `export KUBE_EDITOR='your_editor_location'` in `./bashrc` to change the editor.
+
+### Scaling pods horizontally
+- `kubectl scale rs <rs_name> --replicas=x` where `x is in N`.
+- Or `kubectl edit rs <rs_name>`.
+- The latter is called `declarative` approach, and it's less error-prone.
+- `kubectl delete rs <rs_name> --cascade=false` to prevent deletion of pods.
