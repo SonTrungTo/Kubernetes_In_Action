@@ -72,3 +72,7 @@ due to mistach configurations.
 - Or `kubectl edit rs <rs_name>`.
 - The latter is called `declarative` approach, and it's less error-prone.
 - `kubectl delete rs <rs_name> --cascade=false` to prevent deletion of pods.
+
+## ReplicationSets
+- Is an upgraded version of ReplcationControllers, making RC oudated.
+- vs RC: has more expansive pods selector (multiple selector, label exists, etc...)
