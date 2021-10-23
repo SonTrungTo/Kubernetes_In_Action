@@ -76,3 +76,17 @@ due to mistach configurations.
 ## ReplicationSets
 - Is an upgraded version of ReplcationControllers, making RC oudated.
 - vs RC: has more expansive pods selector (multiple selector, label exists, etc...)
+
+## DaemonSets (one pod on each and every node)
+- Example 1: running infra-related pods that perform system-level operations, e.g,
+a log-collector and a resource monitor on every node.
+- Example 2: kube-proxy on all nodes to make services work (network).
+
+### DeamonSet to run a pod on every node.
+- Setup much like RS; however, it doesn't need replicas.(skipped Kubernetes Scheduler => bypass unscheduled nodes)
+- When node goes down, it doesn't replace pods.
+- Deamon Set makes sure that every node has a pod running.
+
+### DeamonSet to run pods on a subset of nodes.
+- Using `nodeSelector` property in the pod template.
+- `k get ds`
