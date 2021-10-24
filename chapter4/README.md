@@ -82,11 +82,22 @@ due to mistach configurations.
 a log-collector and a resource monitor on every node.
 - Example 2: kube-proxy on all nodes to make services work (network).
 
-### DeamonSet to run a pod on every node.
+### DaemonSet to run a pod on every node.
 - Setup much like RS; however, it doesn't need replicas.(skipped Kubernetes Scheduler => bypass unscheduled nodes)
 - When node goes down, it doesn't replace pods.
-- Deamon Set makes sure that every node has a pod running.
+- Daemon Set makes sure that every node has a pod running.
 
 ### DeamonSet to run pods on a subset of nodes.
 - Using `nodeSelector` property in the pod template.
-- `k get ds`
+- `k get ds`, `k get po`, `k get nodes`.
+- `k label node <node_name> key=value`.
+- `k label node <node_name> key=value2 --overwrite` =>
+makes ds terminating the pod.
+
+## Running pods that perform a single completable task
+- ReplicationSets and DaemonSet runs continuous tasks that are
+never considered completed. Processes in such pods are restarted
+when they exit. But in a completable task, after its process
+are terminated, it should not be restarted.
+- => `Job` resource.
+- In the event of a node failure,
