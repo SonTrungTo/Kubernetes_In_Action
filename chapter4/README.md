@@ -95,9 +95,27 @@ a log-collector and a resource monitor on every node.
 makes ds terminating the pod.
 
 ## Running pods that perform a single completable task
-- ReplicationSets and DaemonSet runs continuous tasks that are
+- ReplicationSets and DaemonSets run continuous tasks that are
 never considered completed. Processes in such pods are restarted
 when they exit. But in a completable task, after its process
 are terminated, it should not be restarted.
 - => `Job` resource.
-- In the event of a node failure,
+- In the event of a node failure, jobs replace pods on other nodes.
+- In the event of a process error, jobs replace or may not replace pods (configurable).
+- Using `batch` API group and `v1` API version.
+- Not specifying selector => will based on `labels` in the template of the pod.
+- `restartPolicy` must be stipulated (`OnFailure` or `Never`) instead of relying on the title `Job` resource.
+- `k get po`, `k get jobs` => To see jobs/pods completed.
+- `k logs <pod_name>` => To see logs from the pod completed.
+
+### Multiple pods can be run in parallel/sequentially in a job
+- This is done by `completions` or `parallelism` props in `jobs.spec`
+- `completions` => Running jobs sequentially after each pod finishes.
+- `parallelism` => Maximum amount of pods at a given time.
+- `activeDeadlineSeconds` => Timeout for a pod.
+- `backoffLimit` => Max retries for a pod.
+
+## Scheduling Jobs to run (using CronJobs)
+- Using `CronJob` resource, `batch/v1beta1`.
+- Similar to cron job in unix.
+- `startingDeadlineSeconds` => latest time job is allowed to run; otherwise counted as failed job.
